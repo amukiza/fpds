@@ -38,6 +38,10 @@ merge h1@(Node _ a r1 l1) h2@(Node _ b r2 l2)
         rank Empty = 0
         rank (Node r _ _ _) = r
 
+fromList :: (Ord a) => [a] -> Heap a
+fromList [] = Empty
+fromList (x:xs) = insert x $ fromList xs
+
 instance Functor Heap where
     fmap f Empty = Empty
     fmap f (Node rank v r l) = (Node rank (f v) (fmap f r) (fmap f l))
